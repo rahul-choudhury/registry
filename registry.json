@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "Rahul's custom registry",
-  "homepage": "https://rchoudhury.dev",
+  "homepage": "https://registry.rchoudhury.dev",
   "items": [
     {
       "name": "meta-pixel",
@@ -40,6 +40,17 @@
         {
           "path": "registry/hooks/use-carousel-api.ts",
           "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "multi-step-form",
+      "type": "registry:component",
+      "description": "Components and hooks for managing multi step forms.",
+      "files": [
+        {
+          "path": "registry/components/multi-step-form.tsx",
+          "type": "registry:component"
         }
       ]
     }

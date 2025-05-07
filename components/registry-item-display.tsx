@@ -1,12 +1,13 @@
 import { CodeBlockWithCopy } from "./code-block-with-copy";
 import { Badge } from "@/components/ui/badge";
 
+type ItemType = "Component" | "Hook";
+
 export interface RegistryItemType {
   id: string;
   title: string;
-  type: "Component" | "Hook";
+  type: ItemType | ItemType[];
   description: string;
-  installationCommand: string;
   usageExample?: {
     title?: string;
     generalNote?: string;
@@ -24,7 +25,15 @@ export function RegistryItemDisplay({ item }: { item: RegistryItemType }) {
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-3">
           <h2 className="text-2xl font-semibold">{item.title}</h2>
-          {item.type && <Badge variant="outline">{item.type}</Badge>}
+          {Array.isArray(item.type) ? (
+            item.type.map((type) => (
+              <Badge key={type} variant="outline">
+                {type}
+              </Badge>
+            ))
+          ) : (
+            <Badge variant="outline">{item.type}</Badge>
+          )}
         </div>
         <p className="text-muted-foreground">{item.description}</p>
       </div>
@@ -32,7 +41,9 @@ export function RegistryItemDisplay({ item }: { item: RegistryItemType }) {
       {/* Installation */}
       <div className="space-y-2">
         <h3 className="text-lg font-medium">Installation</h3>
-        <CodeBlockWithCopy code={item.installationCommand} />
+        <CodeBlockWithCopy
+          code={`npx shadcn@latest add https://registry.rchoudhury.dev/r/${item.id}.json`}
+        />
       </div>
 
       {/* Usage Example */}

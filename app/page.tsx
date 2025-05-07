@@ -10,8 +10,6 @@ const REGISTRY_ITEMS: RegistryItemType[] = [
     title: "MetaPixel",
     description:
       "A component that encapsulates meta pixel logic for Facebook tracking.",
-    installationCommand:
-      "npx shadcn@latest add https://registry.rchoudhury.dev/r/meta-pixel.json",
     usageExample: {
       generalNote:
         "Non-visual component. Add to your layout or pages where tracking is needed.",
@@ -34,8 +32,6 @@ export default function Layout({ children }) {
     title: "TailwindHelper",
     description:
       "A utility component that displays the current breakpoint. Only visible in development.",
-    installationCommand:
-      "npx shadcn@latest add https://registry.rchoudhury.dev/r/tw-helper.json",
     usageExample: {
       code: `// In your layout.js or root component
 import { TailwindHelper } from "@/components/tw-helper";
@@ -56,8 +52,6 @@ export default function Layout({ children }) {
     title: "useCarouselApi",
     description:
       "A React hook for controlling carousel components with an improved API.",
-    installationCommand:
-      "npx shadcn@latest add https://registry.rchoudhury.dev/r/use-carousel-api.json",
     usageExample: {
       code: `import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { useCarouselApi } from "@/hooks/use-carousel-api";
@@ -75,6 +69,44 @@ export function MyCarousel() {
     </Carousel>
   );
 }`,
+    },
+  },
+  {
+    id: "multi-step-form",
+    type: ["Component", "Hook"],
+    title: "Multi Step Form",
+    description: "Components and hook for managing multi step forms.",
+    usageExample: {
+      code: ` // page.tsx
+import { MultiStepFormProvider, MultiStepFormRenderer } from "@/components/multi-step-form";
+
+export default function Page() {
+  return (
+    <MultiStepFormProvider>
+      <MultiStepFormRenderer>
+        <Step1 />
+        <Step2 />
+        ...
+      </MultiStepFormRenderer>
+    </MultiStepFormProvider>
+  );
+}
+
+// step1.tsx
+import { useMultiStepForm } from "@/components/multi-step-form";
+
+export function Step1() {
+  const { nextStep, prevStep } = useMultiStepForm();
+
+  return (
+    <form>
+      ...
+      <button onClick={prevStep}>Previous</button>
+      <button onClick={nextStep}>Next</button>
+    </form>
+  );
+}
+`,
     },
   },
 ];
