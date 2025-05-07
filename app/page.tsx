@@ -7,6 +7,7 @@ import { TailwindHelper } from "@/registry/components/tw-helper";
 export default function Home() {
   const [metaPixelCopied, setMetaPixelCopied] = useState(false);
   const [twHelperCopied, setTwHelperCopied] = useState(false);
+  const [carouselApiCopied, setCarouselApiCopied] = useState(false);
   return (
     <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
       <header className="flex flex-col gap-1">
@@ -29,7 +30,7 @@ export default function Home() {
           <div className="space-y-2">
             <h3 className="text-lg font-medium">Installation</h3>
             <div className="relative">
-              <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded-md overflow-x-auto text-sm">
+              <pre className="bg-slate-100 dark:bg-slate-800 p-3 pr-10 rounded-md overflow-x-auto text-sm">
                 <code>
                   npx shadcn@latest add
                   https://registry.rchoudhury.dev/r/meta-pixel.json
@@ -46,11 +47,7 @@ export default function Home() {
                 className="absolute top-2 right-2 bg-slate-200 dark:bg-slate-700 p-1.5 rounded-md hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
                 aria-label="Copy to clipboard"
               >
-                {metaPixelCopied ? (
-                  <Check size={16} />
-                ) : (
-                  <Copy size={16} />
-                )}
+                {metaPixelCopied ? <Check size={16} /> : <Copy size={16} />}
               </button>
             </div>
           </div>
@@ -96,7 +93,7 @@ export default function Layout({ children }) {
           <div className="space-y-2">
             <h3 className="text-lg font-medium">Installation</h3>
             <div className="relative">
-              <pre className="bg-slate-100 dark:bg-slate-800 p-3 rounded-md overflow-x-auto text-sm">
+              <pre className="bg-slate-100 dark:bg-slate-800 p-3 pr-10 rounded-md overflow-x-auto text-sm">
                 <code>
                   npx shadcn@latest add
                   https://registry.rchoudhury.dev/r/tw-helper.json
@@ -113,11 +110,7 @@ export default function Layout({ children }) {
                 className="absolute top-2 right-2 bg-slate-200 dark:bg-slate-700 p-1.5 rounded-md hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
                 aria-label="Copy to clipboard"
               >
-                {twHelperCopied ? (
-                  <Check size={16} />
-                ) : (
-                  <Copy size={16} />
-                )}
+                {twHelperCopied ? <Check size={16} /> : <Copy size={16} />}
               </button>
             </div>
           </div>
@@ -152,6 +145,74 @@ export default function Layout({ children }) {
   );
 }`}</code>
               </pre>
+            </div>
+          </div>
+        </section>
+
+        {/* Use Carousel API Hook */}
+        <section className="border rounded-lg p-6 space-y-4">
+          <div className="flex flex-col gap-2">
+            <h2 className="text-2xl font-semibold">useCarouselApi</h2>
+            <p className="text-muted-foreground">
+              A React hook for controlling carousel components with an improved
+              API.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-lg font-medium">Installation</h3>
+            <div className="relative">
+              <pre className="bg-slate-100 dark:bg-slate-800 p-3 pr-10 rounded-md overflow-x-auto text-sm">
+                <code>
+                  npx shadcn@latest add
+                  https://registry.rchoudhury.dev/r/use-carousel-api.json
+                </code>
+              </pre>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    "npx shadcn@latest add https://registry.rchoudhury.dev/r/use-carousel-api.json",
+                  );
+                  setCarouselApiCopied(true);
+                  setTimeout(() => setCarouselApiCopied(false), 2000);
+                }}
+                className="absolute top-2 right-2 bg-slate-200 dark:bg-slate-700 p-1.5 rounded-md hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                aria-label="Copy to clipboard"
+              >
+                {carouselApiCopied ? <Check size={16} /> : <Copy size={16} />}
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-lg font-medium">Usage Example</h3>
+            <p className="text-sm text-muted-foreground">
+              Use with shadcn/ui carousel component for enhanced control.
+            </p>
+            <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-900">
+              <pre className="text-sm overflow-x-auto">
+                <code>{`import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { useCarouselApi } from "@/hooks/use-carousel-api";
+
+export function MyCarousel() {
+  const { api, setApi, current, count } = useCarouselApi();
+
+  return (
+    <div className="space-y-4">
+      <Carousel setApi={setApi}>
+        <CarouselContent>
+          <CarouselItem>Slide 1</CarouselItem>
+          <CarouselItem>Slide 2</CarouselItem>
+          <CarouselItem>Slide 3</CarouselItem>
+        </CarouselContent>
+      </Carousel>
+    </div>
+  );
+}`}</code>
+              </pre>
+              <span className="text-xs text-muted-foreground block mt-2">
+                Note: Requires the shadcn/ui carousel component to be installed
+              </span>
             </div>
           </div>
         </section>

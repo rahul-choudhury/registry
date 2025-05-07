@@ -30,6 +30,18 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "use-carousel-api",
+      "type": "registry:hook",
+      "description": "A hook to get an instance of carousel api for shadcn carousel.",
+      "registryDependencies": ["carousel"],
+      "files": [
+        {
+          "path": "registry/hooks/use-carousel-api.ts",
+          "type": "registry:hook"
+        }
+      ]
     }
   ]
 }
