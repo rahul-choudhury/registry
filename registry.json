@@ -19,6 +19,17 @@
           "target": "public/scripts/pixel.js"
         }
       ]
+    },
+    {
+      "name": "tailwind-helper",
+      "type": "registry:component",
+      "description": "A component that displays the current tailwind breakpoint.",
+      "files": [
+        {
+          "path": "registry/components/tw-helper.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
