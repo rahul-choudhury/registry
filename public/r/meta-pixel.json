@@ -4,7 +4,7 @@
   "type": "registry:block",
   "description": "A component that encapsulates meta pixel logic.",
   "devDependencies": [
-    "@types/react-facebook-pixel"
+    "@types/facebook-pixel"
   ],
   "files": [
     {

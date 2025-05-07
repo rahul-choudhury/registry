@@ -7,7 +7,7 @@
       "name": "meta-pixel",
       "type": "registry:block",
       "description": "A component that encapsulates meta pixel logic.",
-      "devDependencies": ["@types/react-facebook-pixel"],
+      "devDependencies": ["@types/facebook-pixel"],
       "files": [
         {
           "path": "registry/blocks/meta-pixel/meta-pixel.tsx",
