@@ -46,6 +46,18 @@ export function RegistryItemDisplay({ item }: { item: RegistryItemType }) {
         />
       </div>
 
+      {/* Preview */}
+      {item.previewComponent && (
+        <div className="space-y-2">
+          <h3 className="text-lg font-medium">
+            {item.previewTitle || "Preview"}
+          </h3>
+          <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-900">
+            {item.previewComponent}
+          </div>
+        </div>
+      )}
+
       {/* Usage Example */}
       {item.usageExample && (
         <div className="space-y-2">
@@ -63,21 +75,9 @@ export function RegistryItemDisplay({ item }: { item: RegistryItemType }) {
             </pre>
             {item.usageExample.codeNote && (
               <span className="text-xs text-muted-foreground block mt-2">
-                {item.usageExample.codeNote}
+                NOTE: {item.usageExample.codeNote}
               </span>
             )}
-          </div>
-        </div>
-      )}
-
-      {/* Preview */}
-      {item.previewComponent && (
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">
-            {item.previewTitle || "Preview"}
-          </h3>
-          <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-900">
-            {item.previewComponent}
           </div>
         </div>
       )}

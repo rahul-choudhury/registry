@@ -53,6 +53,18 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "submit-button",
+      "type": "registry:component",
+      "description": "A button component with loading state.",
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "registry/components/submit-button.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

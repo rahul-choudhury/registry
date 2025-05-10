@@ -2,6 +2,7 @@ import {
   RegistryItemDisplay,
   RegistryItemType,
 } from "@/components/registry-item-display";
+import { SubmitButton } from "@/registry/components/submit-button";
 
 const REGISTRY_ITEMS: RegistryItemType[] = [
   {
@@ -108,6 +109,41 @@ export function Step1() {
 }
 `,
     },
+  },
+  {
+    id: "submit-button",
+    type: "Component",
+    title: "SubmitButton",
+    description: "A button component with loading state.",
+    usageExample: {
+      code: `import { SubmitButton } from "@/components/ui/submit-button";
+
+export function MyForm() {
+  const { isPending } = submitData();
+
+  return (
+    <form>
+      <fieldset disabled={isPending} className="group">
+        ... {/* Your form inputs */}
+        <SubmitButton>Submit</SubmitButton>
+      </fieldset>
+    </form>
+  );
+}`,
+      codeNote: `It relies on the the "group" className to work.`,
+    },
+    previewComponent: (
+      <div className="flex gap-6 justify-center">
+        <fieldset className="group flex flex-col gap-1">
+          <SubmitButton>Submit</SubmitButton>
+          <p className="text-xs">Normal state</p>
+        </fieldset>
+        <fieldset disabled className="group flex flex-col gap-1">
+          <SubmitButton>Submit</SubmitButton>
+          <p className="text-xs">Loading state</p>
+        </fieldset>
+      </div>
+    ),
   },
 ];
 
