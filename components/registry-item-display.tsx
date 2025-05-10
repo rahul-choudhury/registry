@@ -42,7 +42,7 @@ export function RegistryItemDisplay({ item }: { item: RegistryItemType }) {
       <div className="space-y-2">
         <h3 className="text-lg font-medium">Installation</h3>
         <CodeBlockWithCopy
-          code={`npx shadcn@latest add https://registry.rchoudhury.dev/r/${item.id}.json`}
+          code={`npx shadcn@latest add https://registry.rchoudhury.dev/r/${item.id}`}
         />
       </div>
 

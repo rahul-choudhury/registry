@@ -27,7 +27,7 @@ export default function Layout({ children }) {
     },
   },
   {
-    id: "tw-helper",
+    id: "tailwind-helper",
     type: "Component",
     title: "TailwindHelper",
     description:
