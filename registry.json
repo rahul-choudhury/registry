@@ -44,6 +44,18 @@
       ]
     },
     {
+      "name": "use-carousel-scale",
+      "type": "registry:hook",
+      "description": "A hook to provide scaling logic for the active item in a carousel.",
+      "registryDependencies": ["carousel"],
+      "files": [
+        {
+          "path": "registry/hooks/use-carousel-scale.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
       "name": "multi-step-form",
       "type": "registry:component",
       "description": "Components and hooks for managing multi step forms.",

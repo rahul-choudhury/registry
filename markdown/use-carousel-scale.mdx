@@ -1,0 +1,28 @@
+## useCarouselScale
+A React hook to provide scaling logic for the active item in a carousel.
+
+### Installation
+```bash
+npx shadcn@latest add https://registry.rchoudhury.dev/r/use-carousel-scale
+```
+
+### Usage
+```typescriptreact
+// my-carousel.tsx
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { useCarouselScale } from "@/hooks/use-carousel-api";
+
+export function MyCarousel() {
+  const { setApi, current, count } = useCarouselScale();
+
+  return (
+    <Carousel setApi={setApi} opts={{ loop: true }} className="w-full max-w-xs">
+      <CarouselContent>
+        <CarouselItem className="basis-1/3">...</CarouselItem>
+        <CarouselItem className="basis-1/3">...</CarouselItem>
+        <CarouselItem className="basis-1/3">...</CarouselItem>
+      </CarouselContent>
+    </Carousel>
+  );
+}
+```
