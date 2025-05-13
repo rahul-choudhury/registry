@@ -1,0 +1,28 @@
+## useCarouselApi
+A React hook for controlling carousel components with an improved API.
+
+### Installation
+```bash
+npx shadcn@latest add https://registry.rchoudhury.dev/r/use-carousel-api
+```
+
+### Usage
+```typescriptreact
+// my-carousel.tsx
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { useCarouselApi } from "@/hooks/use-carousel-api";
+
+export function MyCarousel() {
+  const { api, setApi, current, count } = useCarouselApi();
+
+  return (
+    <Carousel setApi={setApi} className="w-full max-w-xs">
+      <CarouselContent>
+        <CarouselItem>...</CarouselItem>
+        <CarouselItem>...</CarouselItem>
+        <CarouselItem>...</CarouselItem>
+      </CarouselContent>
+    </Carousel>
+  );
+}
+```

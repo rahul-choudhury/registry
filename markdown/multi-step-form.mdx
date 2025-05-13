@@ -1,0 +1,40 @@
+## Multi Step Form
+Components and hook for managing multi step forms.
+
+### Installation
+```bash
+npx shadcn@latest add https://registry.rchoudhury.dev/r/multi-step-form
+```
+
+### Usage
+```typescriptreact
+// page.tsx
+import { MultiStepFormProvider, MultiStepFormRenderer } from "@/components/multi-step-form";
+
+export default function Page() {
+  return (
+    <MultiStepFormProvider>
+      <MultiStepFormRenderer>
+        <Step1 />
+        <Step2 />
+        ...
+      </MultiStepFormRenderer>
+    </MultiStepFormProvider>
+  );
+}
+
+// step1.tsx
+import { useMultiStepForm } from "@/components/multi-step-form";
+
+export function Step1() {
+  const { nextStep, prevStep } = useMultiStepForm();
+
+  return (
+    <form>
+      ...
+      <button onClick={prevStep}>Previous</button>
+      <button onClick={nextStep}>Next</button>
+    </form>
+  );
+}
+```

@@ -1,0 +1,32 @@
+import { SubmitButtonPreview } from "@/components/previews/submit-button";
+
+## SubmitButton
+A button component with loading state.
+
+### Installation
+```bash
+npx shadcn@latest add https://registry.rchoudhury.dev/r/submit-button
+```
+
+### Preview
+<SubmitButtonPreview />
+
+### Usage
+```typescriptreact
+import { SubmitButton } from "@/components/ui/submit-button";
+
+export function MyForm() {
+  const { isPending } = submitData();
+
+  return (
+    <form>
+      <fieldset disabled={isPending} className="group">
+        ... {/* Your form inputs */}
+        <SubmitButton>Submit</SubmitButton>
+      </fieldset>
+    </form>
+  );
+}
+```
+
+> NOTE: It relies on the the "group" className to work.
