@@ -6,18 +6,21 @@ import { Button } from "@/components/ui/button";
 
 export function CodeBlockWithCopy({ children }: { children: React.ReactNode }) {
   const [copied, setCopied] = React.useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   const handleCopy = () => {
-    const codeElement = document.querySelector(".relative pre code");
-    if (codeElement) {
-      navigator.clipboard.writeText(codeElement.textContent || "");
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
+    if (!containerRef.current) return;
+
+    const codeElement = containerRef.current.querySelector("pre code");
+    if (!codeElement) return;
+
+    navigator.clipboard.writeText(codeElement.textContent || "");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       <pre className="bg-muted p-3 pr-10 rounded-md overflow-x-auto text-sm">
         {children}
       </pre>
