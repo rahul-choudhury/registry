@@ -1,0 +1,82 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "Rahul's custom registry",
+  "homepage": "https://registry.rchoudhury.dev",
+  "items": [
+    {
+      "name": "meta-pixel",
+      "type": "registry:block",
+      "description": "A component that encapsulates meta pixel logic.",
+      "devDependencies": ["@types/facebook-pixel"],
+      "files": [
+        {
+          "path": "registry/blocks/meta-pixel/meta-pixel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/blocks/meta-pixel/pixel.js",
+          "type": "registry:file",
+          "target": "public/scripts/pixel.js"
+        }
+      ]
+    },
+    {
+      "name": "tailwind-helper",
+      "type": "registry:component",
+      "description": "A component that displays the current tailwind breakpoint.",
+      "files": [
+        {
+          "path": "registry/components/tw-helper.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "use-carousel-api",
+      "type": "registry:hook",
+      "description": "A hook to get an instance of carousel api for shadcn carousel.",
+      "registryDependencies": ["carousel"],
+      "files": [
+        {
+          "path": "registry/hooks/use-carousel-api.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "use-carousel-scale",
+      "type": "registry:hook",
+      "description": "A hook to provide scaling logic for the active item in a carousel.",
+      "registryDependencies": ["carousel"],
+      "files": [
+        {
+          "path": "registry/hooks/use-carousel-scale.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "multi-step-form",
+      "type": "registry:component",
+      "description": "Components and hooks for managing multi step forms.",
+      "files": [
+        {
+          "path": "registry/components/multi-step-form.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "submit-button",
+      "type": "registry:component",
+      "description": "A button component with loading state.",
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "registry/components/submit-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

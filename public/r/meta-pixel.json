@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "meta-pixel",
+  "type": "registry:block",
+  "description": "A component that encapsulates meta pixel logic.",
+  "devDependencies": [
+    "@types/facebook-pixel"
+  ],
+  "files": [
+    {
+      "path": "registry/blocks/meta-pixel/meta-pixel.tsx",
+      "content": "import Script from \"next/script\";\n\n// https://developers.facebook.com/docs/facebook-pixel/advanced/\nexport function event(name: string, options = {}) {\n  window.fbq(\"track\", name, options);\n}\n\nexport function MetaPixel({ mpId }: { mpId: string }) {\n  const handleOnLoad = () => {\n    window.fbq(\"track\", \"PageView\");\n  };\n\n  return (\n    <Script\n      id=\"fb-pixel\"\n      src=\"/scripts/pixel.js\"\n      strategy=\"afterInteractive\"\n      onLoad={handleOnLoad}\n      data-pixel-id={mpId}\n    />\n  );\n}\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/blocks/meta-pixel/pixel.js",
+      "content": "const PIXEL_ID = document.currentScript.getAttribute(\"data-pixel-id\");\n\nfunction initializeFacebookPixel(f, b, e, v, n, t, s) {\n  if (f.fbq) {\n    return;\n  }\n  n = function () {\n    if (n.callMethod) {\n      n.callMethod.apply(n, arguments);\n    } else {\n      n.queue.push(arguments);\n    }\n  };\n  f.fbq = n;\n  if (!f._fbq) f._fbq = n;\n  n.push = n;\n  n.loaded = !0;\n  n.version = \"2.0\";\n  n.queue = [];\n  t = b.createElement(e);\n  t.async = !0;\n  t.src = v;\n  s = b.getElementsByTagName(e)[0];\n  s.parentNode.insertBefore(t, s);\n}\n\ninitializeFacebookPixel(\n  window,\n  document,\n  \"script\",\n  \"https://connect.facebook.net/en_US/fbevents.js\",\n);\n\nwindow.fbq(\"init\", PIXEL_ID);\n",
+      "type": "registry:file",
+      "target": "public/scripts/pixel.js"
+    }
+  ]
+}
