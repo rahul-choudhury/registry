@@ -1,5 +1,10 @@
 import type { MDXComponents } from "mdx/types";
-import { CodeBlockWithCopy } from "./components/code-block-with-copy";
+import { CodeBlock } from "./components/code-block";
+
+type FigureProps = React.ComponentPropsWithoutRef<"figure"> & {
+  "data-rehype-pretty-code-figure"?: string;
+  "data-language"?: string;
+};
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -12,7 +17,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     p: ({ children }) => (
       <p className="text-muted-foreground mb-4">{children}</p>
     ),
-    pre: ({ children }) => <CodeBlockWithCopy>{children}</CodeBlockWithCopy>,
+    figure: (props: FigureProps) => {
+      // Check if this is a code block from rehype-pretty-code
+      if ("data-rehype-pretty-code-figure" in props) {
+        return <CodeBlock {...props} />;
+      }
+      return <figure {...props} />;
+    },
     blockquote: ({ children }) => (
       <blockquote className="mt-4 text-xs [&>*]:m-0">{children}</blockquote>
     ),

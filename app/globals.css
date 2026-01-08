@@ -119,4 +119,31 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Syntax-highlighted code blocks */
+  [data-rehype-pretty-code-figure] pre {
+    @apply bg-muted p-4 pt-8 rounded-lg overflow-x-auto text-sm my-0;
+  }
+
+  [data-rehype-pretty-code-figure] code {
+    @apply grid min-w-full break-words rounded-none border-0 bg-transparent p-0 font-mono;
+    box-decoration-break: clone;
+  }
+
+  [data-rehype-pretty-code-figure] code > [data-line] {
+    @apply px-1;
+  }
+
+  [data-rehype-pretty-code-figure] code [data-line] span {
+    color: var(--shiki-light);
+  }
+
+  .dark [data-rehype-pretty-code-figure] code [data-line] span {
+    color: var(--shiki-dark);
+  }
+
+  /* Inline code (not in pre blocks) */
+  :not(pre) > code {
+    @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+  }
 }
