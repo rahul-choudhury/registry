@@ -9,8 +9,10 @@ export default function Home() {
   const components = BLOCKS.filter(
     (block) =>
       block.type === "registry:component" || block.type === "registry:block",
+  ).sort((a, b) => a.name.localeCompare(b.name));
+  const hooks = BLOCKS.filter((block) => block.type === "registry:hook").sort(
+    (a, b) => a.name.localeCompare(b.name),
   );
-  const hooks = BLOCKS.filter((block) => block.type === "registry:hook");
 
   return (
     <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
