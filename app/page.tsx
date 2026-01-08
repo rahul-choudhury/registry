@@ -1,8 +1,17 @@
+// "use client";
+
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BLOCKS } from "@/markdown";
 
 export default function Home() {
+  const components = BLOCKS.filter(
+    (block) =>
+      block.type === "registry:component" || block.type === "registry:block",
+  );
+  const hooks = BLOCKS.filter((block) => block.type === "registry:hook");
+
   return (
     <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
       <div className="flex justify-between">
@@ -33,13 +42,26 @@ export default function Home() {
           <ModeToggle />
         </div>
       </div>
-      <main className="flex flex-col flex-1 gap-8">
-        {BLOCKS.map((Block, idx) => (
-          <section className="border rounded-lg p-6" key={idx}>
-            <Block />
-          </section>
-        ))}
-      </main>
+      <Tabs defaultValue="components" className="flex-1">
+        <TabsList>
+          <TabsTrigger value="components">Components</TabsTrigger>
+          <TabsTrigger value="hooks">Hooks</TabsTrigger>
+        </TabsList>
+        <TabsContent value="components" className="flex flex-col gap-8">
+          {components.map((block, idx) => (
+            <section className="border rounded-lg p-6" key={idx}>
+              <block.Component />
+            </section>
+          ))}
+        </TabsContent>
+        <TabsContent value="hooks" className="flex flex-col gap-8">
+          {hooks.map((block, idx) => (
+            <section className="border rounded-lg p-6" key={idx}>
+              <block.Component />
+            </section>
+          ))}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

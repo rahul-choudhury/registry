@@ -5,6 +5,7 @@ import UseCarouselScale from "./use-carousel-scale.mdx";
 import MultiStepForm from "./multi-step-form.mdx";
 import SubmitButton from "./submit-button.mdx";
 import UseMediaQuery from "./use-media-query.mdx";
+import registry from "../registry.json";
 
 export const BLOCKS = [
   MetaPixel,
@@ -14,4 +15,8 @@ export const BLOCKS = [
   MultiStepForm,
   SubmitButton,
   UseMediaQuery,
-];
+].map((Block, index) => ({
+  Component: Block,
+  type: registry.items[index].type,
+  name: registry.items[index].name,
+}));
