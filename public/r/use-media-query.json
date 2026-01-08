@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-media-query",
+  "description": "A hook to subscribe to media query changes.",
+  "files": [
+    {
+      "path": "registry/hooks/use-media-query.ts",
+      "content": "import { useCallback, useSyncExternalStore } from \"react\";\n\nexport function useMediaQuery(query: string) {\n  const subscribe = useCallback(\n    (callback: () => void) => {\n      const mql = window.matchMedia(query);\n      mql.addEventListener(\"change\", callback);\n      return () => mql.removeEventListener(\"change\", callback);\n    },\n    [query],\n  );\n\n  const getSnapshot = () => window.matchMedia(query).matches;\n\n  const getServerSnapshot = () => false;\n\n  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}

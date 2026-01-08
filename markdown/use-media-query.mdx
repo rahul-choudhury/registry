@@ -1,0 +1,24 @@
+## useMediaQuery
+A React hook that subscribes to CSS media query changes using `useSyncExternalStore`.
+
+### Installation
+```bash
+npx shadcn@latest add https://registry.rchoudhury.dev/r/use-media-query.json
+```
+
+### Usage
+```typescriptreact
+import { useMediaQuery } from "@/hooks/use-media-query";
+
+export function MyComponent() {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isDark = useMediaQuery("(prefers-color-scheme: dark)");
+  const isLandscape = useMediaQuery("(orientation: landscape)");
+
+  return (
+    <div>
+      {isMobile ? <MobileView /> : <DesktopView />}
+    </div>
+  );
+}
+```

@@ -4,6 +4,7 @@ import UseCarouselApi from "./use-carousel-api.mdx";
 import UseCarouselScale from "./use-carousel-scale.mdx";
 import MultiStepForm from "./multi-step-form.mdx";
 import SubmitButton from "./submit-button.mdx";
+import UseMediaQuery from "./use-media-query.mdx";
 
 export const BLOCKS = [
   MetaPixel,
@@ -12,4 +13,5 @@ export const BLOCKS = [
   UseCarouselScale,
   MultiStepForm,
   SubmitButton,
+  UseMediaQuery,
 ];

@@ -77,6 +77,17 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "use-media-query",
+      "type": "registry:hook",
+      "description": "A hook to subscribe to media query changes.",
+      "files": [
+        {
+          "path": "registry/hooks/use-media-query.ts",
+          "type": "registry:hook"
+        }
+      ]
     }
   ]
 }
