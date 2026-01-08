@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "multi-step-form",
-  "type": "registry:component",
   "description": "Components and hooks for managing multi step forms.",
   "files": [
     {
@@ -9,5 +8,6 @@
       "content": "\"use client\";\n\nimport * as React from \"react\";\n\ntype MultiStepFormContextType = {\n  currStep: number;\n  nextStep: () => void;\n  prevStep: () => void;\n  goToStep: (step: number) => void;\n};\n\nconst MultiStepFormContext =\n  React.createContext<MultiStepFormContextType | null>(null);\n\nexport function MultiStepFormProvider({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  const [step, setStep] = React.useState(0);\n\n  const nextStep = () => setStep((prev) => prev + 1);\n  const prevStep = () => setStep((prev) => Math.max(0, prev - 1));\n  const goToStep = (step: number) => setStep(step);\n\n  return (\n    <MultiStepFormContext\n      value={{ currStep: step, nextStep, prevStep, goToStep }}\n    >\n      {children}\n    </MultiStepFormContext>\n  );\n}\n\nexport function useMultiStepForm() {\n  const context = React.useContext(MultiStepFormContext);\n  if (!context) {\n    throw new Error(\n      \"useMultiStepForm must be used within a MultiStepFormProvider.\",\n    );\n  }\n  return context;\n}\n\nexport function MultiStepFormRenderer({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  const { currStep } = useMultiStepForm();\n  const steps = React.Children.toArray(children);\n  return steps[currStep];\n}\n",
       "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:component"
 }

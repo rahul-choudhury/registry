@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tailwind-helper",
-  "type": "registry:component",
   "description": "A component that displays the current tailwind breakpoint.",
   "files": [
     {
@@ -9,5 +8,6 @@
       "content": "export function TailwindHelper() {\n  if (process.env.NODE_ENV === \"production\") {\n    return null;\n  }\n\n  return (\n    <div className=\"fixed bottom-16 left-4 z-50\">\n      <div className=\"rounded-full border border-gray-700 bg-gray-800 px-3 py-1 font-mono text-sm text-white shadow-lg\">\n        <span className=\"sm:hidden\">xs</span>\n        <span className=\"hidden sm:inline md:hidden\">sm</span>\n        <span className=\"hidden md:inline lg:hidden\">md</span>\n        <span className=\"hidden lg:inline xl:hidden\">lg</span>\n        <span className=\"hidden xl:inline 2xl:hidden\">xl</span>\n        <span className=\"hidden 2xl:inline\">2xl</span>\n      </div>\n    </div>\n  );\n}\n",
       "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:component"
 }

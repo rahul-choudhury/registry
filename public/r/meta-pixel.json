@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "meta-pixel",
-  "type": "registry:block",
   "description": "A component that encapsulates meta pixel logic.",
   "devDependencies": [
     "@types/facebook-pixel"
@@ -18,5 +17,6 @@
       "type": "registry:file",
       "target": "public/scripts/pixel.js"
     }
-  ]
+  ],
+  "type": "registry:block"
 }
