@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { type CarouselApi } from "@/components/ui/carousel";
+import type { CarouselApi } from "@/components/ui/carousel";
 
 type ScaleCarouselOptions = {
   minScale?: number;
@@ -37,44 +37,47 @@ export function useCarouselScale(opts?: ScaleCarouselOptions) {
     [tweenFactorBase],
   );
 
-  const tweenScale = React.useCallback((emblaApi: CarouselApi) => {
-    if (!emblaApi) return;
+  const tweenScale = React.useCallback(
+    (emblaApi: CarouselApi) => {
+      if (!emblaApi) return;
 
-    const engine = emblaApi.internalEngine();
-    const scrollProgress = emblaApi.scrollProgress();
-    const slidesInView = emblaApi.slidesInView();
+      const engine = emblaApi.internalEngine();
+      const scrollProgress = emblaApi.scrollProgress();
+      const slidesInView = emblaApi.slidesInView();
 
-    emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
-      let diffToTarget = scrollSnap - scrollProgress;
-      const slidesInSnap = engine.slideRegistry[snapIndex];
+      emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+        let diffToTarget = scrollSnap - scrollProgress;
+        const slidesInSnap = engine.slideRegistry[snapIndex];
 
-      slidesInSnap.forEach((slideIndex) => {
-        if (!slidesInView.includes(slideIndex)) return;
+        slidesInSnap.forEach((slideIndex) => {
+          if (!slidesInView.includes(slideIndex)) return;
 
-        if (engine.options.loop) {
-          engine.slideLooper.loopPoints.forEach((loopItem) => {
-            const target = loopItem.target();
-            if (slideIndex === loopItem.index && target !== 0) {
-              const sign = Math.sign(target);
-              if (sign === -1) {
-                diffToTarget = scrollSnap - (1 + scrollProgress);
+          if (engine.options.loop) {
+            engine.slideLooper.loopPoints.forEach((loopItem) => {
+              const target = loopItem.target();
+              if (slideIndex === loopItem.index && target !== 0) {
+                const sign = Math.sign(target);
+                if (sign === -1) {
+                  diffToTarget = scrollSnap - (1 + scrollProgress);
+                }
+                if (sign === 1) {
+                  diffToTarget = scrollSnap + (1 - scrollProgress);
+                }
               }
-              if (sign === 1) {
-                diffToTarget = scrollSnap + (1 - scrollProgress);
-              }
-            }
-          });
-        }
+            });
+          }
 
-        const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
-        const scale = numberWithinRange(tweenValue, minScale, 1).toString();
-        const tweenNode = tweenNodes.current[slideIndex];
-        if (tweenNode) {
-          tweenNode.style.transform = `scale(${scale})`;
-        }
+          const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
+          const scale = numberWithinRange(tweenValue, minScale, 1).toString();
+          const tweenNode = tweenNodes.current[slideIndex];
+          if (tweenNode) {
+            tweenNode.style.transform = `scale(${scale})`;
+          }
+        });
       });
-    });
-  }, []);
+    },
+    [minScale],
+  );
 
   React.useEffect(() => {
     if (!api) {

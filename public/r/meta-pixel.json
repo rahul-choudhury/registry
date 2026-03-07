@@ -13,7 +13,7 @@
     },
     {
       "path": "registry/blocks/meta-pixel/pixel.js",
-      "content": "const PIXEL_ID = document.currentScript.getAttribute(\"data-pixel-id\");\n\nfunction initializeFacebookPixel(f, b, e, v, n, t, s) {\n  if (f.fbq) {\n    return;\n  }\n  n = function () {\n    if (n.callMethod) {\n      n.callMethod.apply(n, arguments);\n    } else {\n      n.queue.push(arguments);\n    }\n  };\n  f.fbq = n;\n  if (!f._fbq) f._fbq = n;\n  n.push = n;\n  n.loaded = !0;\n  n.version = \"2.0\";\n  n.queue = [];\n  t = b.createElement(e);\n  t.async = !0;\n  t.src = v;\n  s = b.getElementsByTagName(e)[0];\n  s.parentNode.insertBefore(t, s);\n}\n\ninitializeFacebookPixel(\n  window,\n  document,\n  \"script\",\n  \"https://connect.facebook.net/en_US/fbevents.js\",\n);\n\nwindow.fbq(\"init\", PIXEL_ID);\n",
+      "content": "const PIXEL_ID = document.currentScript.getAttribute(\"data-pixel-id\");\n\nfunction initializeFacebookPixel(f, b, e, v, n, t, s) {\n  if (f.fbq) {\n    return;\n  }\n  n = (...args) => {\n    if (n.callMethod) {\n      n.callMethod.apply(n, args);\n    } else {\n      n.queue.push(args);\n    }\n  };\n  f.fbq = n;\n  if (!f._fbq) f._fbq = n;\n  n.push = n;\n  n.loaded = !0;\n  n.version = \"2.0\";\n  n.queue = [];\n  t = b.createElement(e);\n  t.async = !0;\n  t.src = v;\n  s = b.getElementsByTagName(e)[0];\n  s.parentNode.insertBefore(t, s);\n}\n\ninitializeFacebookPixel(\n  window,\n  document,\n  \"script\",\n  \"https://connect.facebook.net/en_US/fbevents.js\",\n);\n\nwindow.fbq(\"init\", PIXEL_ID);\n",
       "type": "registry:file",
       "target": "public/scripts/pixel.js"
     }

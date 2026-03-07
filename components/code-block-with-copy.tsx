@@ -1,7 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { Check, Copy } from "lucide-react";
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 
 export function CodeBlockWithCopy({ children }: { children: React.ReactNode }) {

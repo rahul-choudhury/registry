@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { type CarouselApi } from "@/components/ui/carousel";
+import type { CarouselApi } from "@/components/ui/carousel";
 
 export function useCarouselApi() {
   const [api, setApi] = React.useState<CarouselApi>();

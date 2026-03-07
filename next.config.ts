@@ -1,5 +1,5 @@
-import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
+import type { NextConfig } from "next";
 import type { Options } from "rehype-pretty-code";
 
 const nextConfig: NextConfig = {

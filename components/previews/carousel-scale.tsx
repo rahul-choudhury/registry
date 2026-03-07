@@ -4,21 +4,23 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
   CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useCarouselScale } from "@/registry/hooks/use-carousel-scale";
 
 export function CarouselScalePreview() {
   const { setApi } = useCarouselScale();
+  const slides = Array.from({ length: 7 }, (_, index) => index + 1);
+
   return (
     <div className="flex gap-6 justify-center bg-muted p-4">
       <Carousel setApi={setApi} opts={{ loop: true }}>
         <CarouselContent>
-          {Array.from({ length: 7 }).map((_, index) => (
-            <CarouselItem key={index} className="basis-1/3">
+          {slides.map((slide) => (
+            <CarouselItem key={slide} className="basis-1/3">
               <div className="aspect-[16/12] text-3xl font-semibold border bg-gray-100 rounded-md grid place-items-center">
-                {index + 1}
+                {slide}
               </div>
             </CarouselItem>
           ))}

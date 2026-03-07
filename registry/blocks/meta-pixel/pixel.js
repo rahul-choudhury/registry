@@ -4,11 +4,11 @@ function initializeFacebookPixel(f, b, e, v, n, t, s) {
   if (f.fbq) {
     return;
   }
-  n = function () {
+  n = (...args) => {
     if (n.callMethod) {
-      n.callMethod.apply(n, arguments);
+      n.callMethod.apply(n, args);
     } else {
-      n.queue.push(arguments);
+      n.queue.push(args);
     }
   };
   f.fbq = n;

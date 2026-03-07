@@ -28,6 +28,7 @@ export default function Home() {
             <a
               href="https://github.com/rahul-choudhury/registry"
               target="_blank"
+              rel="noopener"
             >
               <svg
                 role="img"
@@ -50,15 +51,15 @@ export default function Home() {
           <TabsTrigger value="hooks">Hooks</TabsTrigger>
         </TabsList>
         <TabsContent value="components" className="flex flex-col gap-8">
-          {components.map((block, idx) => (
-            <section className="border rounded-lg p-6" key={idx}>
+          {components.map((block) => (
+            <section className="border rounded-lg p-6" key={block.name}>
               <block.Component />
             </section>
           ))}
         </TabsContent>
         <TabsContent value="hooks" className="flex flex-col gap-8">
-          {hooks.map((block, idx) => (
-            <section className="border rounded-lg p-6" key={idx}>
+          {hooks.map((block) => (
+            <section className="border rounded-lg p-6" key={block.name}>
               <block.Component />
             </section>
           ))}

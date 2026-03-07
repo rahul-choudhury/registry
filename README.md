@@ -18,6 +18,12 @@ This is a template for creating a custom registry using Next.js.
 - Every registry item are compatible with the `shadcn` CLI.
 - We have also added v0 integration using the `Open in v0` api.
 
+## Development Commands
+
+- `bun lint` runs Biome checks.
+- `bun format` formats the codebase with Biome.
+- `bun registry:build` generates registry JSON files in `public/r`.
+
 ## Documentation
 
 Visit the [shadcn documentation](https://ui.shadcn.com/docs/registry) to view the full documentation.
