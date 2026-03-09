@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import { CodeBlock } from "./components/code-block";
+import { InstallCommand } from "./components/install-command";
 
 type FigureProps = React.ComponentPropsWithoutRef<"figure"> & {
   "data-rehype-pretty-code-figure"?: string;
@@ -27,6 +28,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     blockquote: ({ children }) => (
       <blockquote className="mt-4 text-xs [&>*]:m-0">{children}</blockquote>
     ),
+    InstallCommand,
     ...components,
   };
 }

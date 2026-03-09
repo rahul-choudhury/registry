@@ -112,6 +112,13 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -127,7 +134,7 @@
 
   /* Syntax-highlighted code blocks */
   [data-rehype-pretty-code-figure] pre {
-    @apply bg-muted p-4 rounded-lg overflow-x-auto text-sm my-0;
+    @apply bg-muted p-4 rounded-lg overflow-x-auto scrollbar-none text-sm my-0;
   }
 
   [data-rehype-pretty-code-figure] code {
