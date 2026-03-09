@@ -6,12 +6,13 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
   buildInstallCommand,
-  DEFAULT_PACKAGE_MANAGER,
+  getPackageManagerPreferenceServerSnapshot,
+  getPackageManagerPreferenceSnapshot,
   isPackageManager,
   PACKAGE_MANAGERS,
   type PackageManager,
-  readPackageManagerPreference,
-  writePackageManagerPreference,
+  setPackageManagerPreference,
+  subscribeToPackageManagerPreference,
 } from "@/lib/install-command";
 
 interface InstallCommandProps {
@@ -19,14 +20,12 @@ interface InstallCommandProps {
 }
 
 export function InstallCommand({ url }: InstallCommandProps) {
-  const [packageManager, setPackageManager] = React.useState<PackageManager>(
-    DEFAULT_PACKAGE_MANAGER,
+  const packageManager = React.useSyncExternalStore<PackageManager>(
+    subscribeToPackageManagerPreference,
+    getPackageManagerPreferenceSnapshot,
+    getPackageManagerPreferenceServerSnapshot,
   );
   const [copied, setCopied] = React.useState(false);
-
-  React.useEffect(() => {
-    setPackageManager(readPackageManagerPreference(window.localStorage));
-  }, []);
 
   React.useEffect(() => {
     if (!copied) {
@@ -46,9 +45,7 @@ export function InstallCommand({ url }: InstallCommandProps) {
       return;
     }
 
-    const nextPackageManager = value;
-    setPackageManager(nextPackageManager);
-    writePackageManagerPreference(window.localStorage, nextPackageManager);
+    setPackageManagerPreference(value);
   };
 
   const handleCopy = async () => {

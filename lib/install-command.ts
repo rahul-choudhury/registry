@@ -28,7 +28,9 @@ export function buildInstallCommand(
   return `${COMMAND_PREFIXES[packageManager]} shadcn@latest add ${url}`;
 }
 
-export function readPackageManagerPreference(storage?: StorageReader | null) {
+function readPackageManagerPreference(
+  storage?: StorageReader | null,
+): PackageManager {
   if (!storage) {
     return DEFAULT_PACKAGE_MANAGER;
   }
@@ -41,7 +43,7 @@ export function readPackageManagerPreference(storage?: StorageReader | null) {
   }
 }
 
-export function writePackageManagerPreference(
+function writePackageManagerPreference(
   storage: StorageWriter | null | undefined,
   packageManager: PackageManager,
 ) {
@@ -55,3 +57,83 @@ export function writePackageManagerPreference(
     // Ignore storage write failures so the picker still works in private mode.
   }
 }
+
+const packageManagerStore = {
+  listeners: new Set<() => void>(),
+  current: DEFAULT_PACKAGE_MANAGER as PackageManager,
+  hasInitialized: false,
+  hasStorageListener: false,
+
+  emitChange() {
+    for (const listener of this.listeners) {
+      listener();
+    }
+  },
+
+  ensureInitialized() {
+    if (this.hasInitialized || typeof window === "undefined") {
+      return;
+    }
+
+    this.current = readPackageManagerPreference(window.localStorage);
+    this.hasInitialized = true;
+  },
+
+  ensureStorageSubscription() {
+    if (this.hasStorageListener || typeof window === "undefined") {
+      return;
+    }
+
+    window.addEventListener("storage", (event) => {
+      if (event.key !== INSTALL_COMMAND_STORAGE_KEY) {
+        return;
+      }
+
+      this.current = readPackageManagerPreference(window.localStorage);
+      this.emitChange();
+    });
+
+    this.hasStorageListener = true;
+  },
+
+  subscribe(listener: () => void) {
+    this.ensureInitialized();
+    this.ensureStorageSubscription();
+    this.listeners.add(listener);
+
+    return () => {
+      this.listeners.delete(listener);
+    };
+  },
+
+  getSnapshot(): PackageManager {
+    this.ensureInitialized();
+    return this.current;
+  },
+
+  getServerSnapshot(): PackageManager {
+    return DEFAULT_PACKAGE_MANAGER;
+  },
+
+  set(packageManager: PackageManager) {
+    this.current = packageManager;
+
+    if (typeof window !== "undefined") {
+      writePackageManagerPreference(window.localStorage, packageManager);
+    }
+
+    this.emitChange();
+  },
+};
+
+export const subscribeToPackageManagerPreference =
+  packageManagerStore.subscribe.bind(packageManagerStore);
+
+export const getPackageManagerPreferenceSnapshot =
+  packageManagerStore.getSnapshot.bind(packageManagerStore);
+
+export const getPackageManagerPreferenceServerSnapshot =
+  packageManagerStore.getServerSnapshot.bind(packageManagerStore);
+
+export const setPackageManagerPreference =
+  packageManagerStore.set.bind(packageManagerStore);
