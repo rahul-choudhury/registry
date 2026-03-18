@@ -7,25 +7,51 @@ type MultiStepFormContextType = {
   nextStep: () => void;
   prevStep: () => void;
   goToStep: (step: number) => void;
+  registerSteps: (count: number) => void;
 };
 
 const MultiStepFormContext =
   React.createContext<MultiStepFormContextType | null>(null);
+
+function clampStep(step: number, totalSteps: number) {
+  if (!Number.isFinite(step) || totalSteps <= 0) {
+    return 0;
+  }
+
+  return Math.min(Math.max(Math.trunc(step), 0), totalSteps - 1);
+}
 
 export function MultiStepFormProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [step, setStep] = React.useState(0);
+  const [currStep, setCurrStep] = React.useState(0);
+  const [totalSteps, setTotalSteps] = React.useState(0);
 
-  const nextStep = () => setStep((prev) => prev + 1);
-  const prevStep = () => setStep((prev) => Math.max(0, prev - 1));
-  const goToStep = (step: number) => setStep(step);
+  const nextStep = React.useCallback(() => {
+    setCurrStep((prev) => clampStep(prev + 1, totalSteps));
+  }, [totalSteps]);
+
+  const prevStep = React.useCallback(() => {
+    setCurrStep((prev) => clampStep(prev - 1, totalSteps));
+  }, [totalSteps]);
+
+  const goToStep = React.useCallback(
+    (step: number) => {
+      setCurrStep(clampStep(step, totalSteps));
+    },
+    [totalSteps],
+  );
+
+  const registerSteps = React.useCallback((count: number) => {
+    setTotalSteps(count);
+    setCurrStep((prev) => clampStep(prev, count));
+  }, []);
 
   return (
     <MultiStepFormContext
-      value={{ currStep: step, nextStep, prevStep, goToStep }}
+      value={{ currStep, nextStep, prevStep, goToStep, registerSteps }}
     >
       {children}
     </MultiStepFormContext>
@@ -47,7 +73,13 @@ export function MultiStepFormRenderer({
 }: {
   children: React.ReactNode;
 }) {
-  const { currStep } = useMultiStepForm();
+  const { currStep, registerSteps } = useMultiStepForm();
   const steps = React.Children.toArray(children);
-  return steps[currStep];
+  const safeStep = clampStep(currStep, steps.length);
+
+  React.useEffect(() => {
+    registerSteps(steps.length);
+  }, [registerSteps, steps.length]);
+
+  return steps[safeStep] ?? null;
 }
