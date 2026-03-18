@@ -2,16 +2,17 @@
 
 import * as React from "react";
 
-type MultiStepFormContextType = {
+type MultiStepContextType = {
   currStep: number;
+  totalSteps: number;
+  isFirstStep: boolean;
+  isLastStep: boolean;
   nextStep: () => void;
   prevStep: () => void;
   goToStep: (step: number) => void;
-  registerSteps: (count: number) => void;
 };
 
-const MultiStepFormContext =
-  React.createContext<MultiStepFormContextType | null>(null);
+const MultiStepContext = React.createContext<MultiStepContextType | null>(null);
 
 function clampStep(step: number, totalSteps: number) {
   if (!Number.isFinite(step) || totalSteps <= 0) {
@@ -21,65 +22,52 @@ function clampStep(step: number, totalSteps: number) {
   return Math.min(Math.max(Math.trunc(step), 0), totalSteps - 1);
 }
 
-export function MultiStepFormProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [currStep, setCurrStep] = React.useState(0);
-  const [totalSteps, setTotalSteps] = React.useState(0);
-
-  const nextStep = React.useCallback(() => {
-    setCurrStep((prev) => clampStep(prev + 1, totalSteps));
-  }, [totalSteps]);
-
-  const prevStep = React.useCallback(() => {
-    setCurrStep((prev) => clampStep(prev - 1, totalSteps));
-  }, [totalSteps]);
-
-  const goToStep = React.useCallback(
-    (step: number) => {
-      setCurrStep(clampStep(step, totalSteps));
-    },
-    [totalSteps],
-  );
-
-  const registerSteps = React.useCallback((count: number) => {
-    setTotalSteps(count);
-    setCurrStep((prev) => clampStep(prev, count));
-  }, []);
-
-  return (
-    <MultiStepFormContext
-      value={{ currStep, nextStep, prevStep, goToStep, registerSteps }}
-    >
-      {children}
-    </MultiStepFormContext>
-  );
-}
-
-export function useMultiStepForm() {
-  const context = React.useContext(MultiStepFormContext);
-  if (!context) {
-    throw new Error(
-      "useMultiStepForm must be used within a MultiStepFormProvider.",
-    );
-  }
-  return context;
-}
-
-export function MultiStepFormRenderer({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const { currStep, registerSteps } = useMultiStepForm();
+export function MultiStep({ children }: { children: React.ReactNode }) {
   const steps = React.Children.toArray(children);
-  const safeStep = clampStep(currStep, steps.length);
+  const totalSteps = steps.length;
+  const [currStep, setCurrStep] = React.useState(0);
 
   React.useEffect(() => {
-    registerSteps(steps.length);
-  }, [registerSteps, steps.length]);
+    setCurrStep((prev) => clampStep(prev, totalSteps));
+  }, [totalSteps]);
 
-  return steps[safeStep] ?? null;
+  const nextStep = () => {
+    setCurrStep((prev) => clampStep(prev + 1, totalSteps));
+  };
+
+  const prevStep = () => {
+    setCurrStep((prev) => clampStep(prev - 1, totalSteps));
+  };
+
+  const goToStep = (step: number) => {
+    setCurrStep(clampStep(step, totalSteps));
+  };
+
+  const safeStep = clampStep(currStep, totalSteps);
+  const isFirstStep = safeStep === 0;
+  const isLastStep = totalSteps <= 1 || safeStep === totalSteps - 1;
+
+  return (
+    <MultiStepContext
+      value={{
+        currStep: safeStep,
+        totalSteps,
+        isFirstStep,
+        isLastStep,
+        nextStep,
+        prevStep,
+        goToStep,
+      }}
+    >
+      {steps[safeStep] ?? null}
+    </MultiStepContext>
+  );
+}
+
+export function useMultiStep() {
+  const context = React.useContext(MultiStepContext);
+  if (!context) {
+    throw new Error("useMultiStep must be used within a MultiStep.");
+  }
+  return context;
 }

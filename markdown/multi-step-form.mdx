@@ -1,5 +1,5 @@
 ## Multi Step Form
-Components and hook for managing multi step forms.
+Component and hook for managing multi step forms.
 
 ### Installation
 <InstallCommand url="https://registry.rchoudhury.dev/r/multi-step-form.json" />
@@ -7,31 +7,33 @@ Components and hook for managing multi step forms.
 ### Usage
 ```tsx
 // page.tsx
-import { MultiStepFormProvider, MultiStepFormRenderer } from "@/components/multi-step-form";
+import { MultiStep } from "@/components/multi-step-form";
 
 export default function Page() {
   return (
-    <MultiStepFormProvider>
-      <MultiStepFormRenderer>
-        <Step1 />
-        <Step2 />
-        ...
-      </MultiStepFormRenderer>
-    </MultiStepFormProvider>
+    <MultiStep>
+      <Step1 />
+      <Step2 />
+      ...
+    </MultiStep>
   );
 }
 
 // step1.tsx
-import { useMultiStepForm } from "@/components/multi-step-form";
+import { useMultiStep } from "@/components/multi-step-form";
 
 export function Step1() {
-  const { nextStep, prevStep } = useMultiStepForm();
+  const { nextStep, prevStep, isFirstStep, isLastStep } = useMultiStep();
 
   return (
     <form>
       ...
-      <button type="button" onClick={prevStep}>Previous</button>
-      <button type="button" onClick={nextStep}>Next</button>
+      <button type="button" disabled={isFirstStep} onClick={prevStep}>
+        Previous
+      </button>
+      <button type="button" disabled={isLastStep} onClick={nextStep}>
+        Next
+      </button>
     </form>
   );
 }
