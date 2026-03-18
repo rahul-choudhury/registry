@@ -1,3 +1,4 @@
+import { getDocumentationMarkdown } from "@/lib/documentation.server";
 import registry from "../registry.json";
 import MetaPixel from "./meta-pixel.mdx";
 import MultiStep from "./multi-step.mdx";
@@ -19,6 +20,7 @@ export const BLOCKS = blocks.map((block) => {
   const registryItem = registry.items.find((item) => item.name === block.name);
   return {
     ...block,
+    documentationMarkdown: getDocumentationMarkdown(block.name),
     type: registryItem?.type || "registry:component",
   };
 });

@@ -4,6 +4,9 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BLOCKS } from "@/markdown";
+import { createDocumentationComponents } from "@/mdx-components";
+
+type RegistryBlock = (typeof BLOCKS)[number];
 
 export default function Home() {
   const components = BLOCKS.filter(
@@ -51,20 +54,22 @@ export default function Home() {
           <TabsTrigger value="hooks">Hooks</TabsTrigger>
         </TabsList>
         <TabsContent value="components" className="flex flex-col gap-8">
-          {components.map((block) => (
-            <section className="border rounded-lg p-6" key={block.name}>
-              <block.Component />
-            </section>
-          ))}
+          <RegistryEntries blocks={components} />
         </TabsContent>
         <TabsContent value="hooks" className="flex flex-col gap-8">
-          {hooks.map((block) => (
-            <section className="border rounded-lg p-6" key={block.name}>
-              <block.Component />
-            </section>
-          ))}
+          <RegistryEntries blocks={hooks} />
         </TabsContent>
       </Tabs>
     </div>
   );
+}
+
+function RegistryEntries({ blocks }: { blocks: RegistryBlock[] }) {
+  return blocks.map((block) => (
+    <section className="border rounded-lg p-6" key={block.name}>
+      <block.Component
+        components={createDocumentationComponents(block.documentationMarkdown)}
+      />
+    </section>
+  ));
 }
