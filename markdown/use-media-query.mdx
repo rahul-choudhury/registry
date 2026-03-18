@@ -4,6 +4,12 @@ A React hook that subscribes to CSS media query changes.
 ### Installation
 <InstallCommand url="https://registry.rchoudhury.dev/r/use-media-query.json" />
 
+### Parameters
+- `query: string`: Any valid CSS media query, such as `"(max-width: 768px)"`.
+
+### Returns
+- `boolean`: `true` when the media query currently matches.
+
 ### Usage
 ```tsx
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -20,3 +26,8 @@ export function MyComponent() {
   );
 }
 ```
+
+### Notes
+- The hook uses `useSyncExternalStore`, which keeps subscription behavior consistent with React's concurrent rendering model.
+- On the server it returns `false` until hydration, so plan for that initial value when rendering responsive UI.
+- It works well for viewport, color scheme, motion preference, and orientation queries.

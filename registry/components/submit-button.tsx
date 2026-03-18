@@ -2,6 +2,12 @@ import { Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+/**
+ * Submit button with a built-in loading indicator.
+ *
+ * When `isPending` is omitted, the loader relies on disabled state propagated
+ * through `group` selectors.
+ */
 export function SubmitButton({
   children,
   className,

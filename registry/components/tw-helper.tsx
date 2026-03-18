@@ -1,3 +1,8 @@
+/**
+ * Show the active Tailwind breakpoint in development.
+ *
+ * Returns `null` in production.
+ */
 export function TailwindHelper() {
   if (process.env.NODE_ENV === "production") {
     return null;

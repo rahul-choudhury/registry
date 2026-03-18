@@ -4,6 +4,9 @@ A utility component that displays the current breakpoint. Only visible in develo
 ### Installation
 <InstallCommand url="https://registry.rchoudhury.dev/r/tailwind-helper.json" />
 
+### Exports
+- `TailwindHelper`: Shows the active Tailwind breakpoint label in the bottom-left corner.
+
 ### Usage
 ```tsx
 import { TailwindHelper } from "@/components/tw-helper";
@@ -17,3 +20,8 @@ export default function Layout({ children }) {
   );
 }
 ```
+
+### Notes
+- The component returns `null` in production, so it is safe to leave mounted in app layouts.
+- The labels map to Tailwind's default breakpoints: `xs`, `sm`, `md`, `lg`, `xl`, and `2xl`.
+- This is intended as a local development aid, not a user-facing UI element.

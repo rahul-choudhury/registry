@@ -22,6 +22,12 @@ function clampStep(step: number, totalSteps: number) {
   return Math.min(Math.max(Math.trunc(step), 0), totalSteps - 1);
 }
 
+/**
+ * Render a multi-step flow from its children and expose navigation state
+ * through `useMultiStep`.
+ *
+ * @param children Step components rendered one at a time.
+ */
 export function MultiStep({ children }: { children: React.ReactNode }) {
   const steps = React.Children.toArray(children);
   const totalSteps = steps.length;
@@ -64,6 +70,11 @@ export function MultiStep({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Read the current multi-step state and navigation helpers.
+ *
+ * @returns The active step index, derived booleans, and navigation methods.
+ */
 export function useMultiStep() {
   const context = React.useContext(MultiStepContext);
   if (!context) {

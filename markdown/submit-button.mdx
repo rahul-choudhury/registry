@@ -9,6 +9,11 @@ A button component with loading state.
 ### Preview
 <SubmitButtonPreview />
 
+### Props
+- `children: string`: Button label.
+- `className?: string`: Optional extra classes passed to the underlying button.
+- `isPending?: boolean`: Explicitly control the loading state. When omitted, the component relies on disabled/group styles.
+
 ### Usage
 ```tsx
 import { SubmitButton } from "@/components/ui/submit-button";
@@ -27,4 +32,7 @@ export function MyForm() {
 }
 ```
 
-> NOTE: It relies on the the "group" className to work.
+### Notes
+- When `isPending` is omitted, wrap the button in a disabled `fieldset` with the `group` class so the loader can react to the pending state.
+- When `isPending` is provided, the component becomes fully controlled and does not depend on group selectors.
+- This component is built on top of the registry's `button` dependency.

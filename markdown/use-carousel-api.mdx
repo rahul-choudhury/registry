@@ -4,6 +4,12 @@ A React hook for controlling carousel components with an improved API.
 ### Installation
 <InstallCommand url="https://registry.rchoudhury.dev/r/use-carousel-api.json" />
 
+### Returns
+- `api`: The current carousel API instance.
+- `setApi`: Pass this to the `Carousel` component's `setApi` prop.
+- `current: number`: The currently selected snap, starting at `1`.
+- `count: number`: Total number of snaps in the carousel.
+
 ### Usage
 ```tsx
 // my-carousel.tsx
@@ -24,3 +30,8 @@ export function MyCarousel() {
   );
 }
 ```
+
+### Notes
+- This hook expects the registry's `carousel` dependency, because it uses the `CarouselApi` type and the `setApi` pattern from that component.
+- `current` is one-based for display purposes, which is convenient for labels like `Slide 2 of 5`.
+- The hook updates `current` when Embla emits `select`.

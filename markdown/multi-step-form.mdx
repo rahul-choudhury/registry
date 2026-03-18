@@ -4,6 +4,19 @@ Component and hook for managing multi step forms.
 ### Installation
 <InstallCommand url="https://registry.rchoudhury.dev/r/multi-step-form.json" />
 
+### Exports
+- `MultiStep`: Renders the active step and keeps navigation state in context.
+- `useMultiStep`: Reads the current step state and navigation helpers.
+
+### Hook API
+- `currStep: number`: Zero-based index of the active step.
+- `totalSteps: number`: Total number of child steps passed to `MultiStep`.
+- `isFirstStep: boolean`: `true` when the first step is active.
+- `isLastStep: boolean`: `true` when the last step is active.
+- `nextStep(): void`: Moves forward and clamps at the last step.
+- `prevStep(): void`: Moves backward and clamps at the first step.
+- `goToStep(step: number): void`: Jumps to a step index and clamps invalid values.
+
 ### Usage
 ```tsx
 // page.tsx
@@ -38,3 +51,8 @@ export function Step1() {
   );
 }
 ```
+
+### Notes
+- `MultiStep` calculates the total step count from its `children`, so you do not need to pass a separate step count prop.
+- Only the active child is rendered.
+- `currStep` is zero-based, which makes it easy to drive custom progress indicators.

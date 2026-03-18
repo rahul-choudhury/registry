@@ -4,18 +4,41 @@ A component that encapsulates meta pixel logic for Facebook tracking.
 ### Installation
 <InstallCommand url="https://registry.rchoudhury.dev/r/meta-pixel.json" />
 
+### Exports
+- `MetaPixel`: Injects the Meta Pixel script and sends the initial `PageView`.
+- `event`: Triggers additional pixel events after the script has loaded.
+
+### Props
+- `mpId: string`: Your Meta Pixel ID.
+
 ### Usage
 Non-visual component. Add it to your layout or pages where tracking is needed.
 
 ```tsx
-import { MetaPixel } from "@/components/meta-pixel";
+import { MetaPixel, event } from "@/components/meta-pixel";
 
 export default function Layout({ children }) {
   return (
     <>
-      <MetaPixel mpId={your-tracking-id} />
+      <MetaPixel mpId="1234567890" />
       {children}
     </>
   );
 }
+
+export function BuyButton() {
+  return (
+    <button
+      type="button"
+      onClick={() => event("Purchase", { currency: "USD", value: 99 })}
+    >
+      Buy now
+    </button>
+  );
+}
 ```
+
+### Notes
+- This registry item also installs `public/scripts/pixel.js`, which `MetaPixel` loads with `next/script`.
+- `MetaPixel` should usually live in a shared layout so page views are tracked consistently.
+- Call `event(...)` only on the client, after `MetaPixel` has mounted.
