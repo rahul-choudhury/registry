@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "multi-step",
+  "description": "Component and hook for managing multi-step flows.",
+  "files": [
+    {
+      "path": "registry/components/multi-step.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\n\ntype MultiStepContextType = {\n  currStep: number;\n  totalSteps: number;\n  isFirstStep: boolean;\n  isLastStep: boolean;\n  nextStep: () => void;\n  prevStep: () => void;\n  goToStep: (step: number) => void;\n};\n\nconst MultiStepContext = React.createContext<MultiStepContextType | null>(null);\n\nfunction clampStep(step: number, totalSteps: number) {\n  if (!Number.isFinite(step) || totalSteps <= 0) {\n    return 0;\n  }\n\n  return Math.min(Math.max(Math.trunc(step), 0), totalSteps - 1);\n}\n\n/**\n * Render a multi-step flow from its children and expose navigation state\n * through `useMultiStep`.\n *\n * @param children Step components rendered one at a time.\n */\nexport function MultiStep({ children }: { children: React.ReactNode }) {\n  const steps = React.Children.toArray(children);\n  const totalSteps = steps.length;\n  const [currStep, setCurrStep] = React.useState(0);\n\n  React.useEffect(() => {\n    setCurrStep((prev) => clampStep(prev, totalSteps));\n  }, [totalSteps]);\n\n  const nextStep = () => {\n    setCurrStep((prev) => clampStep(prev + 1, totalSteps));\n  };\n\n  const prevStep = () => {\n    setCurrStep((prev) => clampStep(prev - 1, totalSteps));\n  };\n\n  const goToStep = (step: number) => {\n    setCurrStep(clampStep(step, totalSteps));\n  };\n\n  const safeStep = clampStep(currStep, totalSteps);\n  const isFirstStep = safeStep === 0;\n  const isLastStep = totalSteps <= 1 || safeStep === totalSteps - 1;\n\n  return (\n    <MultiStepContext\n      value={{\n        currStep: safeStep,\n        totalSteps,\n        isFirstStep,\n        isLastStep,\n        nextStep,\n        prevStep,\n        goToStep,\n      }}\n    >\n      {steps[safeStep] ?? null}\n    </MultiStepContext>\n  );\n}\n\n/**\n * Read the current multi-step state and navigation helpers.\n *\n * @returns The active step index, derived booleans, and navigation methods.\n */\nexport function useMultiStep() {\n  const context = React.useContext(MultiStepContext);\n  if (!context) {\n    throw new Error(\"useMultiStep must be used within a MultiStep.\");\n  }\n  return context;\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}

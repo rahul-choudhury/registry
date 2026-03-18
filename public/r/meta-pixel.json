@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/blocks/meta-pixel/meta-pixel.tsx",
-      "content": "import Script from \"next/script\";\n\n// https://developers.facebook.com/docs/facebook-pixel/advanced/\nexport function event(name: string, options = {}) {\n  window.fbq(\"track\", name, options);\n}\n\nexport function MetaPixel({ mpId }: { mpId: string }) {\n  const handleOnLoad = () => {\n    window.fbq(\"track\", \"PageView\");\n  };\n\n  return (\n    <Script\n      id=\"fb-pixel\"\n      src=\"/scripts/pixel.js\"\n      strategy=\"afterInteractive\"\n      onLoad={handleOnLoad}\n      data-pixel-id={mpId}\n    />\n  );\n}\n",
+      "content": "import Script from \"next/script\";\n\n// https://developers.facebook.com/docs/facebook-pixel/advanced/\n/**\n * Track a Meta Pixel event after the pixel script has been initialized.\n *\n * @param name The Meta event name to track.\n * @param options Optional payload sent along with the event.\n */\nexport function event(name: string, options = {}) {\n  window.fbq(\"track\", name, options);\n}\n\n/**\n * Inject the Meta Pixel script and send the initial `PageView` event.\n *\n * @param mpId Your Meta Pixel ID.\n */\nexport function MetaPixel({ mpId }: { mpId: string }) {\n  const handleOnLoad = () => {\n    window.fbq(\"track\", \"PageView\");\n  };\n\n  return (\n    <Script\n      id=\"fb-pixel\"\n      src=\"/scripts/pixel.js\"\n      strategy=\"afterInteractive\"\n      onLoad={handleOnLoad}\n      data-pixel-id={mpId}\n    />\n  );\n}\n",
       "type": "registry:component"
     },
     {

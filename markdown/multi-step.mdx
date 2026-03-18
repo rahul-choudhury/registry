@@ -1,8 +1,8 @@
-## Multi Step Form
-Component and hook for managing multi step forms.
+## MultiStep
+Component and hook for managing multi-step flows.
 
 ### Installation
-<InstallCommand url="https://registry.rchoudhury.dev/r/multi-step-form.json" />
+<InstallCommand url="https://registry.rchoudhury.dev/r/multi-step.json" />
 
 ### Exports
 - `MultiStep`: Renders the active step and keeps navigation state in context.
@@ -20,7 +20,7 @@ Component and hook for managing multi step forms.
 ### Usage
 ```tsx
 // page.tsx
-import { MultiStep } from "@/components/multi-step-form";
+import { MultiStep } from "@/components/multi-step";
 
 export default function Page() {
   return (
@@ -33,7 +33,7 @@ export default function Page() {
 }
 
 // step1.tsx
-import { useMultiStep } from "@/components/multi-step-form";
+import { useMultiStep } from "@/components/multi-step";
 
 export function Step1() {
   const { nextStep, prevStep, isFirstStep, isLastStep } = useMultiStep();

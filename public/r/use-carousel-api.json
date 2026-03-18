@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/hooks/use-carousel-api.ts",
-      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport type { CarouselApi } from \"@/components/ui/carousel\";\n\nexport function useCarouselApi() {\n  const [api, setApi] = React.useState<CarouselApi>();\n  const [current, setCurrent] = React.useState(0);\n  const [count, setCount] = React.useState(0);\n\n  React.useEffect(() => {\n    if (!api) {\n      return;\n    }\n\n    setCount(api.scrollSnapList().length);\n    setCurrent(api.selectedScrollSnap() + 1);\n\n    api.on(\"select\", () => {\n      setCurrent(api.selectedScrollSnap() + 1);\n    });\n  }, [api]);\n\n  return {\n    api,\n    setApi,\n    current,\n    count,\n  };\n}\n",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport type { CarouselApi } from \"@/components/ui/carousel\";\n\n/**\n * Track a shadcn carousel API instance and expose convenient slide metadata.\n *\n * @returns The Embla API instance, its setter, the one-based active index,\n * and the total snap count.\n */\nexport function useCarouselApi() {\n  const [api, setApi] = React.useState<CarouselApi>();\n  const [current, setCurrent] = React.useState(0);\n  const [count, setCount] = React.useState(0);\n\n  React.useEffect(() => {\n    if (!api) {\n      return;\n    }\n\n    setCount(api.scrollSnapList().length);\n    setCurrent(api.selectedScrollSnap() + 1);\n\n    api.on(\"select\", () => {\n      setCurrent(api.selectedScrollSnap() + 1);\n    });\n  }, [api]);\n\n  return {\n    api,\n    setApi,\n    current,\n    count,\n  };\n}\n",
       "type": "registry:hook"
     }
   ],

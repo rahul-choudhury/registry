@@ -44,12 +44,12 @@
       ]
     },
     {
-      "name": "multi-step-form",
+      "name": "multi-step",
       "type": "registry:component",
-      "description": "Components and hooks for managing multi step forms.",
+      "description": "Component and hook for managing multi-step flows.",
       "files": [
         {
-          "path": "registry/components/multi-step-form.tsx",
+          "path": "registry/components/multi-step.tsx",
           "type": "registry:component"
         }
       ]

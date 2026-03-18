@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "registry/hooks/use-media-query.ts",
-      "content": "import { useCallback, useSyncExternalStore } from \"react\";\n\nexport function useMediaQuery(query: string) {\n  const subscribe = useCallback(\n    (callback: () => void) => {\n      const mql = window.matchMedia(query);\n      mql.addEventListener(\"change\", callback);\n      return () => mql.removeEventListener(\"change\", callback);\n    },\n    [query],\n  );\n\n  const getSnapshot = () => window.matchMedia(query).matches;\n\n  const getServerSnapshot = () => false;\n\n  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);\n}\n",
+      "content": "import { useCallback, useSyncExternalStore } from \"react\";\n\n/**\n * Subscribe to a CSS media query and return whether it currently matches.\n *\n * @param query Any valid CSS media query string.\n * @returns `true` when the query matches the current environment.\n */\nexport function useMediaQuery(query: string) {\n  const subscribe = useCallback(\n    (callback: () => void) => {\n      const mql = window.matchMedia(query);\n      mql.addEventListener(\"change\", callback);\n      return () => mql.removeEventListener(\"change\", callback);\n    },\n    [query],\n  );\n\n  const getSnapshot = () => window.matchMedia(query).matches;\n\n  const getServerSnapshot = () => false;\n\n  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);\n}\n",
       "type": "registry:hook"
     }
   ],
